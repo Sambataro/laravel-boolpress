@@ -19,6 +19,9 @@ class CreatePostsTable extends Migration
             $table->mediumText('sentence');
             $table->string('author', 50); 
             $table->timestamps();
+
+            // DB relation
+            
         });
     }
 

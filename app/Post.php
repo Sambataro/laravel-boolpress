@@ -14,7 +14,7 @@ class Post extends Model
 
     // DB relation
 
-    public function InfoPost() {
+    public function infoPost() {
         return $this-> hasOne('App\InfoPost');
     }
 }
