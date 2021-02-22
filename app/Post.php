@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Post extends Model
 {
@@ -20,5 +21,9 @@ class Post extends Model
 
     public function comments() {
         return $this->hasMany('App\Comment');
+    }
+
+    public function tags() {
+        return $this->belongsToMany('App\Tag');
     }
 }
