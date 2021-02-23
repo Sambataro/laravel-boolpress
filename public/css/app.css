@@ -4608,6 +4608,21 @@ readers do not read off random characters that represent icons */
   font-weight: 900; }
 @charset "UTF-8";
 
+#container-card {
+  display: flex;
+  justify-content: center;
+}
+
+#container-card  .postcard {
+  display: flex;
+  width: calc(100% / 3);
+  flex-wrap: wrap;
+}
+
+#container-card  .postcard img {
+  width: 30%;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

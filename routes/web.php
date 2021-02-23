@@ -18,7 +18,9 @@ Route::get('/', function () {
     return view('welcome');
   });
   
+  Route::get('/blog', "BlogController@index")->name("blog");
+
+  Route::get('/blog/{slug}', "BlogController@show")->name("blog");
+
   Route::resource("posts","PostController");
-  Route::get("/blog/{slug}","BlogController@show");
-  Route::post("/blog/{id}/comment","BlogController@addComment")->name('add-comment');
   

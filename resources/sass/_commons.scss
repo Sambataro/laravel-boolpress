@@ -1,0 +1,16 @@
+#container-card {
+    display: flex;
+    justify-content: center;
+
+    .postcard
+    {
+        display: flex;
+        width: calc(100% / 3);
+        flex-wrap: wrap;
+
+        img
+        {
+            width: 30%;
+        }
+    }
+}
