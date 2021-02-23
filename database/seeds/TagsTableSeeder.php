@@ -16,15 +16,14 @@ class TagsTableSeeder extends Seeder
         $tags = [
             'HTML',
             'CSS',
+            'LARAVEL',
             'JAVASCRIPT',
-            'PHP',
-            'LARAVEL'
+            'PHP'
         ];
-
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             $newTag = new Tag();
-            $newTag->tag = $tag; 
-            $newTag->slug = Str::slug($tag);
+            $newTag->tag_name = $tag;
+            $newTag->tag_slug =  Str::slug($tag);
             $newTag->save();
         }
     }

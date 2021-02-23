@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Comment;
 use App\Post;
+use App\Comment;
 use Faker\Generator as Faker;
 
 class CommentsTableSeeder extends Seeder
@@ -15,14 +15,19 @@ class CommentsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         $posts = Post::all();
+        foreach ($posts as $post) {
 
-        foreach($posts as $post) {
-              $newComment = new Comment();
-              $newComment->post_id = $post->id;
-              $newComment->author = $faker->name;
-              $newComment->text = $faker->word(3);
-
-              $newComment->save();
+            for ($i=0; $i < 3; $i++) { 
+                
+                $newComment = new Comment();
+                $commentDate = $faker->dateTime();
+                $newComment->post_id = $post->id;
+                $newComment->author = $faker->userName;
+                $newComment->text = $faker->sentence(10);
+                $newComment->created_at = $commentDate;
+                $newComment->updated_at = $commentDate;
+                $newComment->save();
+            }
         }
     }
 }

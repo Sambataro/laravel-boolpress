@@ -1,38 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <table class="table table-dark table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>TITOLO</th>
-                    <th>POST</th>
-                    <th>AUTORE</th>
-                    <th>COMMENTI STATUS</th>
-                    <th>POST STATUS</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($posts as $post)
-                <tr>
-                    <td>{{ $post->id }}</td>
-                    <td>{{ $post->title }}</td>
-                    <td>{{ $post->sentence}}</td>
-                    <td>{{ $post->author }}</td>
-                    <td>{{ $post->infoPost->comment_status }}</td>
-                    <td>{{ $post->infoPost->post_status }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+@extends('layouts.layout')
+
+@section('header')
+  <h1>I Miei Post</h1>   
+@endsection
+
+
+@section('content')
+  @if(session('message'))
+    <div class="alert alert-success">{{session("message")}}</div>  
+  @endif
+  <table class="table table-dark table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>ID: </th>
+        <th>TITOLO: </th>
+        <th>SLUG: </th>
+        <th>SOTTOTITOLO: </th>
+        <th>TESTO: </th>
+        <th>AUTORE: </th>
+        <th>IMMAGINE: </th>
+        <th>CREATO IL: </th>
+        <th>AGGIORNATO IL: </th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($posts as $post)
+        <tr>
+          <td>{{$post->id}}</td>
+          <td>{{$post->title}}</td>
+          <td>{{$post->slug}}</td>
+          <td>{{$post->subtitle}}</td>
+          <td>{{substr($post->text, 0, 20)}}</td>
+          <td>{{$post->author}}</td>
+          <td><img style="height: 150px" src="{{$post->img_path}}" alt="{{$post->title}}"> </td>
+          <td>{{$post->created_at}}</td>
+          <td>{{$post->updated_at}}</td>
+          <td><a href="{{route("posts.show", ["post" => $post->id])}}" class="btn btn-outline-light"><i class="fas fa-info-circle"></i></a></td>
+          <td><a href="{{route("posts.edit", ["post" => $post->id])}}" class="btn btn-outline-light"><i class="fas fa-edit"></i></a></td>
+          <td>
+            <form action="{{route("posts.destroy", $post->id)}}" method="POST">
+              @csrf
+              @method("DELETE")
+              <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+      @endforeach
+    </tbody>
+  </table>
+@endsection
+
+@section('footer')
+  <div class="text-right">
+    <a href="{{route("posts.create")}}" class="btn-primary btn-lg">Inserisci un nuovo Post</a>
+  </div>
+@endsection

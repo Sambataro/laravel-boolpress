@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
 use App\Post;
+use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 class PostsTableSeeder extends Seeder
 {
@@ -13,11 +14,15 @@ class PostsTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 10; $i++){
+        for ($i=0; $i < 10; $i++) { 
             $newPost = new Post();
-            $newPost->title = $faker->word(2);
-            $newPost->sentence = $faker->sentence(10);
+            $newPost->title = $faker->sentence();
+            $newPost->slug = Str::slug($newPost->title);
+            $newPost->subtitle = $faker->sentence();
+            $newPost->text = $faker->text();
             $newPost->author = $faker->name;
+            $newPost->img_path = $faker->imageUrl(640, 480, "abstract");
+            $newPost->publication_date = $faker->dateTime();
             $newPost->save();
         }
     }
